@@ -119,7 +119,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4"
         >
-          <a href="/docs" className="flex items-center px-8 py-3 text-base font-semibold rounded-full text-white bg-gradient-premium hover:scale-105 transition-transform shadow-lg shadow-emerald-500/25">
+          <a href="/docs" target="_blank" rel="noopener noreferrer" className="flex items-center px-8 py-3 text-base font-semibold rounded-full text-white bg-gradient-premium hover:scale-105 transition-transform shadow-lg shadow-emerald-500/25">
             Get Started Now
             <ArrowRight className="w-4 h-4 ml-2" />
           </a>

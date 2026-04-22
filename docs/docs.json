@@ -11,14 +11,23 @@
     "light": "#34d399",
     "dark": "#059669"
   },
+  "favicon": "/favicon.svg",
+  "anchors": [
+    {
+      "anchor": "Slik CLI",
+      "href": "https://github.com/FaizyabHussain07/slik-engine",
+      "icon": "github",
+      "color": "#10b981"
+    }
+  ],
+  "topbarCtaButton": {
+    "text": "Try Slik",
+    "url": "https://slik-dev.vercel.app/"
+  },
   "navbar": {
     "links": [
       {
-        "label": "Try Slik",
-        "href": "https://slik-dev.vercel.app/"
-      },
-      {
-        "label": "GitHub",
+        "label": "GitHub (Web)",
         "href": "https://github.com/FaizyabHussain07/slik-dev-web"
       }
     ]
@@ -26,7 +35,7 @@
   "footer": {
     "socials": {
       "github": "https://github.com/FaizyabHussain07/slik-dev-web",
-      "twitter": "https://twitter.com/faizyabhussain",
+      "twitter": "https://x.com/FaizyabHus74391",
       "website": "https://slik-dev.vercel.app/"
     }
   },

@@ -27,7 +27,7 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-[#09090b] dark:text-white uppercase tracking-wider mb-4">Product</h3>
             <ul className="space-y-3 text-sm text-gray-500 dark:text-gray-400">
               <li><a href="#features" className="hover:text-emerald-500 transition-colors">Features</a></li>
-              <li><a href="#" className="hover:text-emerald-500 transition-colors">Documentation</a></li>
+              <li><a href="/docs" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-500 transition-colors">Documentation</a></li>
               <li><a href="#" className="hover:text-emerald-500 transition-colors">Integrations</a></li>
               <li><a href="#" className="hover:text-emerald-500 transition-colors">Changelog</a></li>
             </ul>
