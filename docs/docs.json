@@ -9,11 +9,7 @@
   "colors": {
     "primary": "#10b981",
     "light": "#34d399",
-    "dark": "#059669",
-    "background": {
-      "dark": "#09090b",
-      "light": "#ffffff"
-    }
+    "dark": "#059669"
   },
   "favicon": "/favicon.png",
   "topbarCtaButton": {
@@ -33,22 +29,11 @@
     ]
   },
   "footer": {
-    "links": [
-      {
-        "label": "Website",
-        "href": "https://slik-dev.vercel.app"
-      },
-      {
-        "label": "GitHub",
-        "href": "https://github.com/FaizyabHussain07/slik-dev-web",
-        "icon": "github"
-      },
-      {
-        "label": "Twitter",
-        "href": "https://twitter.com/faizyabhussain",
-        "icon": "twitter"
-      }
-    ]
+    "socials": {
+      "github": "https://github.com/FaizyabHussain07/slik-dev-web",
+      "twitter": "https://twitter.com/faizyabhussain",
+      "website": "https://slik-dev.vercel.app"
+    }
   },
   "navigation": {
     "tabs": [
