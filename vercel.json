@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/docs",
-      "destination": "https://faizyab07-6576c4e4.mintlify.dev/docs"
+      "destination": "https://faizyab07.mintlify.app"
     },
     {
       "source": "/docs/:match*",
-      "destination": "https://faizyab07-6576c4e4.mintlify.dev/docs/:match*"
+      "destination": "https://faizyab07.mintlify.app/:match*"
     }
   ]
 }
