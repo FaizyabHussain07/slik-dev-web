@@ -26,8 +26,8 @@ When you run `npx create-slik@latest my-app`, the CLI asks you a handful of ques
 - A **Next.js** application with App Router, TypeScript, ESLint, and Prettier pre-configured
 - **Tailwind CSS** with `clsx` and `tailwind-merge` already wired in
 - **Framer Motion** animations built into every layout and component
-- **NextAuth / Auth.js** with OAuth and magic link support, fully mapped out
-- **PostgreSQL via Prisma** and Supabase (optional, selected at prompt time)
+- **Supabase Auth (via NextAuth)** with OAuth and magic link support, fully mapped out
+- **Supabase Database (PostgreSQL via Prisma)** (optional, selected at prompt time)
 - Dark mode enabled by default, with localStorage persistence and smooth 0.3s transitions
 - Fully responsive dashboards, settings pages, and landing pages
 
@@ -41,10 +41,10 @@ When you run `npx create-slik@latest my-app`, the CLI asks you a handful of ques
     Fully animated React components styled with Tailwind CSS are built in from the start — not generic defaults you have to replace.
   </Card>
   <Card title="Secure Auth" icon="shield">
-    OAuth, magic links, and robust session management are ready out of the box via NextAuth / Auth.js.
+    OAuth, magic links, and robust session management are ready out of the box via Supabase Auth and NextAuth.
   </Card>
   <Card title="Database Ready" icon="database">
-    PostgreSQL and Prisma are pre-configured. Define your schema, run `prisma db push`, and you're live.
+    Supabase PostgreSQL database and Prisma are pre-configured. Define your schema, run `prisma db push`, and you're live.
   </Card>
   <Card title="Responsive Layouts" icon="layout">
     Mobile navigation, layout drawers, and responsive grids are included and ready for any screen size.

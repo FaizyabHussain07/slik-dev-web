@@ -3,24 +3,24 @@ title: "Choose a Framework Stack for Your Slik Dev App"
 description: "Slik Dev supports Next.js, React, and HTML stacks. Learn what each option gives you and how to select your stack during the CLI scaffolding prompt."
 ---
 
-When you run `npx create-slik@latest my-app`, the CLI immediately asks you to choose a framework stack. Your choice determines the project structure, routing conventions, and server-side capabilities of the app Slik Dev generates. Currently, Next.js is the production-ready option — with React and HTML support actively in development.
+When you run `npx create-slik@latest my-app`, the CLI immediately asks you to choose a framework stack. Your choice determines the project structure, routing conventions, and server-side capabilities of the app Slik Dev generates.
 
 ## Available Stacks
 
 <CardGroup cols={3}>
   <Card title="Next.js" icon="n">
-    App Router, server-side rendering, file-based routing, and API routes — all pre-configured. The only fully available stack today.
+    App Router, server-side rendering, file-based routing, and API routes — all pre-configured.
   </Card>
   <Card title="React" icon="react">
-    Client-side React with a component architecture optimized for SPAs. Coming soon.
+    Client-side React with a component architecture optimized for SPAs.
   </Card>
   <Card title="HTML" icon="code">
-    Vanilla HTML/CSS/JS output for maximum portability. Coming soon.
+    Vanilla HTML/CSS/JS output for maximum portability.
   </Card>
 </CardGroup>
 
 <Note>
-  **Next.js is the only stack available today.** The React and HTML stacks are under active development. Star the [Slik Dev repository](https://github.com/FaizyabHussain07/slik-dev-web) to get notified when they ship.
+  All stacks including Next.js, React, and HTML are fully supported and available to use.
 </Note>
 
 ## What Next.js Gives You
@@ -53,8 +53,8 @@ The CLI prompts you to pick a stack immediately after you run the init command.
     ```
     ? Which stack would you like to use?
     ❯ Next.js
-      React     (coming soon)
-      HTML      (coming soon)
+      React     (available)
+      HTML      (available)
     ```
 
     Use the arrow keys to navigate, then press `Enter` to confirm.
@@ -77,7 +77,7 @@ The CLI prompts you to pick a stack immediately after you run the init command.
 
 | Feature | Next.js | React | HTML |
 |---|---|---|---|
-| Status | Available | Coming soon | Coming soon |
+| Status | Available | Available | Available |
 | Rendering | SSR + CSR | CSR | Static |
 | Routing | App Router (file-based) | Client-side | N/A |
 | API routes | Yes | No | No |

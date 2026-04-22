@@ -2,24 +2,23 @@
   "$schema": "https://mintlify.com/docs.json",
   "name": "Slik",
   "logo": {
-    "dark": "/logo-dark.png",
-    "light": "/logo-light.png"
+    "dark": "/logo-dark.svg",
+    "light": "/logo-light.svg"
   },
-  "theme": "luma",
+  "theme": "mint",
   "colors": {
     "primary": "#10b981",
     "light": "#34d399",
-    "dark": "#059669"
-  },
-  "favicon": "/favicon.png",
-  "topbarCtaButton": {
-    "name": "Try Slik",
-    "url": "https://slik-dev.vercel.app/"
+    "dark": "#059669",
+    "background": {
+      "light": "#ffffff",
+      "dark": "#0B0F19"
+    }
   },
   "navbar": {
     "links": [
       {
-        "label": "Website",
+        "label": "Try Slik",
         "href": "https://slik-dev.vercel.app"
       },
       {
