@@ -48,7 +48,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <a href="/#features" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">Features</a>
             <Link to="/preview" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">Preview</Link>
-            <a href="/#docs" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">Documentation</a>
+            <a href="/docs" className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">Documentation</a>
             
             <div className="flex items-center space-x-4">
               <a href="https://github.com/FaizyabHussain07/slik-engine" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 transition-colors text-sm font-medium text-gray-800 dark:text-gray-200 group">
@@ -84,7 +84,7 @@ export default function Navbar() {
         <div className="md:hidden bg-white dark:bg-[#0a0a0a] border-b border-gray-200 dark:border-white/10 absolute top-16 left-0 right-0 py-4 px-4 flex flex-col space-y-4 shadow-xl">
           <a href="/#features" className="block text-base font-medium text-gray-800 dark:text-gray-200" onClick={() => setMobileMenuOpen(false)}>Features</a>
           <Link to="/preview" className="block text-base font-medium text-gray-800 dark:text-gray-200" onClick={() => setMobileMenuOpen(false)}>Preview</Link>
-          <a href="/#docs" className="block text-base font-medium text-gray-800 dark:text-gray-200" onClick={() => setMobileMenuOpen(false)}>Documentation</a>
+          <a href="/docs" className="block text-base font-medium text-gray-800 dark:text-gray-200" onClick={() => setMobileMenuOpen(false)}>Documentation</a>
           <a href="https://github.com/FaizyabHussain07/slik-engine" className="flex items-center text-base font-medium text-gray-800 dark:text-gray-200" onClick={() => setMobileMenuOpen(false)}>
             <Github className="w-5 h-5 mr-3" />
             GitHub
