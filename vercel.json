@@ -7,10 +7,6 @@
     {
       "source": "/docs/:match*",
       "destination": "https://faizyab07-6576c4e4.mintlify.dev/docs/:match*"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }
