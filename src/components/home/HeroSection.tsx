@@ -101,7 +101,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-5xl md:text-7xl font-bold tracking-tight mb-6 max-w-4xl mx-auto text-[#09090b] dark:text-white"
         >
-          Design at the <span className="text-gradient">speed of thought.</span>
+          Framework Agnostic <span className="text-gradient">SaaS Scaffolding.</span>
         </motion.h1>
         
         <motion.p
@@ -110,7 +110,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-10"
         >
-          Generate production-ready SaaS apps with premium UI, authentication, Database setup, and payments in seconds.
+          Slik is a powerful CLI to generate premium boilerplates for Next.js, React, and HTML. Choose your framework, pick a theme (Bento, Frost, Mono), and ship in seconds.
         </motion.p>
         
         <motion.div

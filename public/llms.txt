@@ -1,0 +1,20 @@
+# Slik — Multi-Framework SaaS Scaffolding CLI
+
+Slik is an open-source CLI for generating premium boilerplates for Next.js, React, and HTML.
+
+## Key Information
+- Project Name: Slik
+- Primary Stack: Next.js 15, React, HTML, Supabase, Tailwind CSS
+- Command: npx create-slik@latest
+- Repository: https://github.com/FaizyabHussain07/slik-engine
+- Documentation: https://slik-dev.vercel.app/docs
+- Themes: Bento, Frost, Mono
+
+## Features
+- Framework Agnostic Scaffolding
+- Premium Handcrafted UI Themes
+- Supabase Auth & Database Integration
+- 60-Second Initial Deployment
+
+## Authors
+- Faizyab Hussain (@FaizyabHussain07)

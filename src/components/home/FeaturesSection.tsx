@@ -9,13 +9,13 @@ const features = [
   },
   {
     icon: <Palette className="w-6 h-6 text-cyan-500" />,
-    title: 'Premium UI',
-    description: 'Handcrafted React components styled with Tailwind CSS are built-in from the start.',
+    title: 'Bento Grid UI',
+    description: 'Modern Bento Grid components and Next.js SaaS templates styled with Tailwind CSS.',
   },
   {
     icon: <Shield className="w-6 h-6 text-emerald-500" />,
-    title: 'Secure Auth',
-    description: 'OAuth, magic links, and robust session management ready out of the box.',
+    title: 'Supabase Auth',
+    description: 'Pre-configured Supabase with OAuth, magic links, and robust session management.',
   },
   {
     icon: <Database className="w-6 h-6 text-cyan-500" />,
@@ -29,8 +29,8 @@ const features = [
   },
   {
     icon: <Command className="w-6 h-6 text-cyan-500" />,
-    title: 'Developer Experience',
-    description: 'End-to-end typed with TypeScript. Strict ESLint and Prettier configs.',
+    title: 'Next.js 15 Starter',
+    description: 'Build on the latest Next.js features with TypeScript, ESLint, and modern best practices.',
   },
 ];
 

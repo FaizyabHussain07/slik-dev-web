@@ -8,6 +8,7 @@ import WhySlikSection from '../components/home/WhySlikSection';
 import HowItWorksSection from '../components/home/HowItWorksSection';
 import TestimonialsSection from '../components/home/TestimonialsSection';
 import PreviewSection from '../components/home/PreviewSection';
+import FAQSection from '../components/home/FAQSection';
 import CTASection from '../components/home/CTASection';
 
 export default function HomePage() {
@@ -23,6 +24,7 @@ export default function HomePage() {
         <WhySlikSection />
         <HowItWorksSection />
         <TestimonialsSection />
+        <FAQSection />
         <CTASection />
       </main>
       <Footer />

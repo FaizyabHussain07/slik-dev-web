@@ -12,6 +12,12 @@
     "dark": "#059669"
   },
   "favicon": "/favicon.svg",
+  "metadata": {
+    "og:title": "Slik Documentation — Multi-Framework SaaS Scaffolding",
+    "og:description": "Complete guide to generating Next.js, React, and HTML SaaS boilerplates with Slik CLI.",
+    "og:image": "https://slik-dev.vercel.app/og-image.png",
+    "twitter:card": "summary_large_image"
+  },
   "anchors": [
     {
       "anchor": "Slik CLI",
