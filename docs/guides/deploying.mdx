@@ -1,0 +1,255 @@
+---
+title: "Deploy Your Slik Dev App to Production on Vercel"
+description: "Step-by-step guide to deploying your Slik Dev-generated Next.js app to Vercel, configuring environment variables, and handling post-deploy checklist items."
+---
+
+Slik Dev generates a Next.js App Router project, and Vercel — Next.js's own hosting platform — is the best place to deploy it. You get zero-config builds, automatic preview deployments on every pull request, edge caching, and seamless environment variable management. This guide covers deploying via the Vercel CLI, via GitHub integration, and what to do after your first successful deploy.
+
+## Before you deploy: run a production build locally
+
+Before pushing to any platform, verify that your app builds without errors:
+
+```bash
+npm run build
+```
+
+Next.js will type-check your TypeScript, lint your code, and generate all static and server-rendered pages. Fix any errors that appear — a passing local build is the fastest way to avoid failed deploys.
+
+<Tip>
+After `npm run build` succeeds, run `npm run start` to test the production server locally at `http://localhost:3000`. This catches runtime issues that the development server sometimes masks.
+</Tip>
+
+---
+
+## Deploy to Vercel via CLI
+
+<Steps>
+
+<Step title="Install the Vercel CLI">
+
+```bash
+npm install -g vercel
+```
+
+</Step>
+
+<Step title="Authenticate with your Vercel account">
+
+```bash
+vercel login
+```
+
+Follow the prompt to authenticate via browser or email.
+
+</Step>
+
+<Step title="Run the deploy command from your project root">
+
+```bash
+vercel
+```
+
+The CLI will ask a few questions on first run:
+
+- **Set up and deploy?** → `Y`
+- **Which scope?** → Select your personal account or team
+- **Link to existing project?** → `N` (creates a new project)
+- **Project name** → Accept the default or enter your own
+- **In which directory is your code located?** → `.` (current directory)
+
+Vercel auto-detects Next.js and configures the build settings correctly.
+
+<Note>
+The first `vercel` command deploys to a preview URL, not production. To deploy to your production domain, run `vercel --prod`.
+</Note>
+
+</Step>
+
+<Step title="Set environment variables">
+
+Your Slik Dev app requires several environment variables that must be set in the Vercel dashboard before the app will function correctly in production.
+
+Go to your project in the Vercel dashboard → **Settings** → **Environment Variables**, then add each of the following:
+
+<Tabs>
+  <Tab title="Auth variables">
+
+    | Variable | Description |
+    |----------|-------------|
+    | `NEXTAUTH_SECRET` | A random string used to sign JWTs and session tokens. Generate one with `openssl rand -base64 32`. |
+    | `NEXTAUTH_URL` | The canonical URL of your production deployment, e.g. `https://yourapp.vercel.app`. |
+
+    <Warning>
+    `NEXTAUTH_URL` **must** match your actual production domain exactly — including the `https://` prefix and without a trailing slash. If this value is wrong, OAuth callbacks will fail and users will not be able to sign in.
+    </Warning>
+
+  </Tab>
+  <Tab title="Database variables">
+
+    | Variable | Description |
+    |----------|-------------|
+    | `DATABASE_URL` | Your PostgreSQL connection string, e.g. `postgresql://user:pass@host:5432/db?sslmode=require`. Supabase, Railway, and Neon all provide this from their dashboard. |
+
+    After setting `DATABASE_URL`, you need to apply your Prisma schema to the production database. Run this from your local machine with the production `DATABASE_URL` set:
+
+    ```bash
+    DATABASE_URL="postgresql://..." npx prisma db push
+    ```
+
+  </Tab>
+  <Tab title="OAuth provider variables">
+
+    If you configured OAuth providers with NextAuth, set the client ID and secret for each provider:
+
+    | Variable | Example |
+    |----------|---------|
+    | `GITHUB_CLIENT_ID` | From GitHub → Settings → Developer apps |
+    | `GITHUB_CLIENT_SECRET` | From GitHub → Settings → Developer apps |
+    | `GOOGLE_CLIENT_ID` | From Google Cloud Console |
+    | `GOOGLE_CLIENT_SECRET` | From Google Cloud Console |
+
+    Each OAuth provider also requires you to add your production callback URL to its allowed origins. For NextAuth, the callback URL follows this pattern:
+
+    ```
+    https://yourapp.vercel.app/api/auth/callback/github
+    https://yourapp.vercel.app/api/auth/callback/google
+    ```
+
+  </Tab>
+</Tabs>
+
+</Step>
+
+<Step title="Redeploy with environment variables active">
+
+After setting all environment variables in the Vercel dashboard, trigger a new deployment to pick them up:
+
+```bash
+vercel --prod
+```
+
+Or push a new commit to your connected GitHub branch — Vercel will rebuild automatically.
+
+</Step>
+
+</Steps>
+
+---
+
+## Deploy via GitHub integration
+
+If you prefer a push-to-deploy workflow, connect your repository to Vercel for automatic deployments on every commit.
+
+<Steps>
+
+<Step title="Push your project to GitHub">
+
+```bash
+git init
+git add .
+git commit -m "Initial Slik Dev scaffolded project"
+git remote add origin https://github.com/yourusername/your-repo.git
+git push -u origin main
+```
+
+</Step>
+
+<Step title="Import the repository in Vercel">
+
+1. Go to [vercel.com/new](https://vercel.com/new)
+2. Click **Import Git Repository**
+3. Select your GitHub account and find your repository
+4. Click **Import**
+
+Vercel detects Next.js automatically and pre-fills the correct build command (`next build`) and output directory.
+
+</Step>
+
+<Step title="Configure environment variables before the first build">
+
+On the import screen, expand the **Environment Variables** section and add all required variables (listed in the CLI deploy section above) before clicking **Deploy**. This ensures the first build succeeds without missing configuration.
+
+</Step>
+
+<Step title="Deploy">
+
+Click **Deploy**. Vercel builds and deploys your app. From this point forward, every push to `main` triggers a production deployment, and every pull request gets its own preview URL.
+
+</Step>
+
+</Steps>
+
+---
+
+## Post-deploy checklist
+
+After your first successful production deployment, work through these items:
+
+<CardGroup cols={2}>
+  <Card title="Update NEXTAUTH_URL" icon="link">
+    If your production domain differs from the preview URL (e.g., you added a custom domain), update `NEXTAUTH_URL` in Vercel environment variables to match. Then redeploy.
+  </Card>
+  <Card title="Update OAuth callback URLs" icon="key">
+    Add your final production domain to the allowed callback URLs in each OAuth provider's settings. OAuth will not work until this matches.
+  </Card>
+  <Card title="Run database migrations" icon="database">
+    If you make schema changes after the initial deploy, run `npx prisma db push` (or `npx prisma migrate deploy` for production migrations) against your production database.
+  </Card>
+  <Card title="Add a custom domain" icon="globe">
+    In Vercel dashboard → your project → **Domains**, add your custom domain and follow the DNS instructions. Vercel provisions TLS automatically.
+  </Card>
+</CardGroup>
+
+<Warning>
+Never set `NEXTAUTH_URL` to `http://localhost:3000` in production environment variables. This is a common mistake when copy-pasting from a local `.env` file. It will silently break all authentication flows in production.
+</Warning>
+
+---
+
+## Alternative deployment platforms
+
+Vercel is the recommended platform for Slik Dev apps, but Next.js runs on other platforms too:
+
+<Tabs>
+  <Tab title="Netlify">
+
+    Netlify supports Next.js via the `@netlify/plugin-nextjs` adapter. Add it to your project, then deploy via the Netlify CLI or GitHub integration. Environment variables are set in **Site configuration** → **Environment variables**.
+
+    ```bash
+    npm install -D @netlify/plugin-nextjs
+    netlify deploy --prod
+    ```
+
+    <Note>
+    Some Next.js App Router features (like edge middleware and incremental static regeneration) have varying levels of support on Netlify. Check Netlify's Next.js compatibility docs before committing to this platform for complex apps.
+    </Note>
+
+  </Tab>
+  <Tab title="Railway">
+
+    Railway is a good choice if your Slik Dev app uses PostgreSQL and you want to host the database and app on the same platform. Create a new Railway project, add a PostgreSQL service, and connect your GitHub repository. Railway auto-detects Next.js.
+
+    Set `DATABASE_URL` from Railway's PostgreSQL service connection string directly in your Railway project's environment variables.
+
+  </Tab>
+  <Tab title="Self-hosted (Docker)">
+
+    For full control, build a Docker image of your Next.js app using Next.js's built-in standalone output:
+
+    ```js
+    // next.config.js
+    module.exports = {
+      output: 'standalone',
+    };
+    ```
+
+    Then build and run:
+
+    ```bash
+    npm run build
+    docker build -t my-slik-dev-app .
+    docker run -p 3000:3000 --env-file .env.production my-slik-dev-app
+    ```
+
+  </Tab>
+</Tabs>

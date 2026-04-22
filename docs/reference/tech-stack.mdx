@@ -1,0 +1,83 @@
+---
+title: "Tech Stack Reference for Slik Dev-Generated Apps"
+description: "Every technology included in a Slik Dev-generated project, why it's there, and how each piece fits together in your new full-stack SaaS application."
+---
+
+When you scaffold a project with Slik Dev, the generated codebase uses a curated set of modern, production-proven technologies. This page documents what's included, what each tool does, and how they fit together — so you know exactly what you're working with from day one.
+
+<CardGroup cols={2}>
+  <Card title="Next.js" icon="n" href="https://nextjs.org/docs">
+    **App Router ready.** Your project uses the Next.js App Router with server components, file-based routing, and built-in API routes. No extra configuration needed.
+  </Card>
+  <Card title="React" icon="react" href="https://react.dev">
+    **Component architecture.** All UI is built with React 18 functional components and hooks. The component library in `components/` is ready to extend.
+  </Card>
+  <Card title="TypeScript" icon="code" href="https://www.typescriptlang.org/docs/">
+    **End-to-end typed.** The entire project — pages, components, API routes, and database models — is TypeScript with strict mode enabled.
+  </Card>
+  <Card title="Tailwind CSS" icon="paintbrush" href="https://tailwindcss.com/docs">
+    **Utility-first styling.** All components use Tailwind utility classes. The `tailwind.config.ts` file is pre-configured with the theme's color palette and custom extensions.
+  </Card>
+  <Card title="Framer Motion" icon="film" href="https://www.framer.com/motion/">
+    **Fluid animations.** Page transitions, hover effects, and scroll-triggered animations are built with Framer Motion. All animations use `initial`, `animate`, and `whileInView` props.
+  </Card>
+  <Card title="Lucide React" icon="sparkles" href="https://lucide.dev/icons/">
+    **Icon library.** All icons in the generated UI come from Lucide React. Import any icon by name: `import { ArrowRight } from 'lucide-react'`.
+  </Card>
+  <Card title="NextAuth / Auth.js" icon="lock" href="https://authjs.dev">
+    **Secure sessions.** Authentication is powered by NextAuth/Auth.js with OAuth and magic link providers pre-wired. Session handling, callbacks, and middleware are all configured for you.
+  </Card>
+  <Card title="Prisma" icon="database" href="https://www.prisma.io/docs">
+    **Type-safe ORM.** Your database schema lives in `prisma/schema.prisma`. Use `npx prisma db push` to sync changes and `npx prisma studio` to browse your data.
+  </Card>
+</CardGroup>
+
+## Supporting utilities
+
+In addition to the core stack, every Slik Dev project includes:
+
+| Package | Purpose |
+|---------|---------|
+| `clsx` | Conditionally join class names |
+| `tailwind-merge` | Merge Tailwind classes without conflicts |
+| `supabase` | Hosted PostgreSQL and real-time features (when database is enabled) |
+| `ESLint` | Linting with strict rules pre-configured |
+| `Prettier` | Code formatting, pre-configured |
+
+## How they fit together
+
+A typical Slik Dev component uses the full stack in a few lines:
+
+```tsx
+import { motion } from 'framer-motion'
+import { ArrowRight } from 'lucide-react'
+import { clsx } from 'clsx'
+
+interface CardProps {
+  title: string
+  active?: boolean
+}
+
+export function FeatureCard({ title, active }: CardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className={clsx(
+        'rounded-2xl border p-6 transition-all',
+        active
+          ? 'border-emerald-500 bg-emerald-500/10'
+          : 'border-white/10 bg-white/5'
+      )}
+    >
+      <h3 className="text-lg font-semibold text-white">{title}</h3>
+      <ArrowRight className="mt-2 text-emerald-400" />
+    </motion.div>
+  )
+}
+```
+
+<Note>
+  All packages are pinned to modern stable versions at the time Slik Dev generates your project. Run `npm update` periodically to keep dependencies current.
+</Note>

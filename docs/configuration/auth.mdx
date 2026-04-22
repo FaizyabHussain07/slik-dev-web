@@ -1,0 +1,133 @@
+---
+title: "Authentication Setup in Your Slik Dev Project"
+description: "Slik Dev pre-wires NextAuth/Auth.js so your app ships with OAuth, magic links, and session management. Configure providers by adding credentials to your .env file."
+---
+
+Slik Dev configures authentication for you at scaffold time using [NextAuth/Auth.js](https://authjs.dev) — the standard auth library for Next.js applications. You don't write any auth routes, session handlers, or provider configurations from scratch. By the time `npm run dev` starts, your app already has working sign-in and sign-up screens, session management, and the wiring for OAuth and magic link flows. Your job is only to supply the credentials for whichever providers you want to activate.
+
+## What's Included
+
+Slik Dev's auth setup covers three distinct capabilities out of the box:
+
+<CardGroup cols={3}>
+  <Card title="OAuth / Social Login" icon="key">
+    Social sign-in with providers like Google, GitHub, and others. OAuth flows are pre-wired — you only need to add your client ID and secret to `.env`.
+  </Card>
+  <Card title="Magic Links" icon="envelope">
+    Passwordless email authentication. Users receive a one-time sign-in link delivered to their inbox. No password storage required.
+  </Card>
+  <Card title="Session Management" icon="shield">
+    Secure, JWT-based session handling via NextAuth. Sessions are validated server-side on every protected route. No manual middleware required.
+  </Card>
+</CardGroup>
+
+## Generated Auth Screens
+
+Slik Dev generates two complete auth screens, both styled with your chosen theme and pre-connected to the NextAuth handler:
+
+- **Sign In** — An email/password form with OAuth provider buttons and a magic link option. Located at `/auth/signin` (or `/sign-in` depending on your App Router config).
+- **Sign Up** — An account creation screen with the same provider options.
+
+You can preview these screens interactively at the Slik Dev theme previewer by selecting the **Auth** tab.
+
+## Environment Variables
+
+After scaffolding, open the `.env` file in your project root. You'll see placeholder variables already written out for you:
+
+```env
+# NextAuth Core
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-here
+
+# Google OAuth (example)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# GitHub OAuth (example)
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+
+# Magic Links (requires an email provider)
+EMAIL_SERVER=smtp://user:pass@smtp.example.com:587
+EMAIL_FROM=noreply@yourapp.com
+```
+
+<Warning>
+  Never commit your `.env` file to version control. The generated project includes a `.gitignore` that excludes it, but verify this before your first push.
+</Warning>
+
+<Note>
+  `NEXTAUTH_SECRET` must be a random string of at least 32 characters. Generate one with: `openssl rand -base64 32`
+</Note>
+
+## Configuring OAuth Providers After Scaffolding
+
+<Steps>
+  <Step title="Create an OAuth application with your provider">
+    For Google: go to [Google Cloud Console](https://console.cloud.google.com) → APIs & Services → Credentials → Create Credentials → OAuth 2.0 Client ID.
+
+    Set the **Authorized redirect URI** to:
+    ```
+    http://localhost:3000/api/auth/callback/google
+    ```
+
+    For production, add your live domain:
+    ```
+    https://yourdomain.com/api/auth/callback/google
+    ```
+  </Step>
+  <Step title="Copy your client ID and secret">
+    After creating the OAuth app, copy the **Client ID** and **Client Secret** from your provider's dashboard.
+  </Step>
+  <Step title="Add credentials to your .env file">
+    Open `.env` in your project root and fill in the values:
+
+    ```env
+    GOOGLE_CLIENT_ID=123456789-abc.apps.googleusercontent.com
+    GOOGLE_CLIENT_SECRET=GOCSPX-yoursecrethere
+    ```
+  </Step>
+  <Step title="Verify the provider is registered in your auth config">
+    Slik generates a NextAuth configuration file at `app/api/auth/[...nextauth]/route.ts`. Open it and confirm your provider is listed:
+
+    ```ts
+    import GoogleProvider from "next-auth/providers/google";
+
+    export const authOptions = {
+      providers: [
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID!,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        }),
+      ],
+    };
+    ```
+
+    To add more providers, import them from `next-auth/providers` and add them to the `providers` array.
+  </Step>
+  <Step title="Restart the dev server and test sign-in">
+    ```bash
+    npm run dev
+    ```
+
+    Navigate to `http://localhost:3000` and use the sign-in screen. The OAuth button for your configured provider should redirect to the provider's consent screen.
+  </Step>
+</Steps>
+
+## Protecting Routes
+
+NextAuth session checks work with Next.js middleware. Your generated project includes a `middleware.ts` file at the project root that protects the `/dashboard` and `/admin` routes by default:
+
+```ts
+export { default } from "next-auth/middleware";
+
+export const config = {
+  matcher: ["/dashboard/:path*", "/admin/:path*"],
+};
+```
+
+Add any additional route patterns to `matcher` to extend protection to other pages.
+
+<Tip>
+  You can access the session object in any Server Component using `getServerSession(authOptions)` from `next-auth`. In Client Components, use the `useSession()` hook from `next-auth/react`.
+</Tip>

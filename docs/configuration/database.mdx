@@ -1,0 +1,188 @@
+---
+title: "Add PostgreSQL and Prisma to Your Slik Dev App"
+description: "Slik Dev optionally adds PostgreSQL via Prisma ORM. Learn how to opt in, set DATABASE_URL, push your schema, and query data with the Prisma Client."
+---
+
+Database setup in Slik Dev is opt-in. When the CLI asks whether to include a database, you can say yes or skip it entirely — the rest of your app works either way. If you opt in, Slik configures [Prisma ORM](https://www.prisma.io) with a PostgreSQL connection and generates a `schema.prisma` file with a starter data model already in place. [Supabase](https://supabase.com) is the recommended hosted PostgreSQL provider, though any PostgreSQL-compatible database works.
+
+## What Gets Scaffolded
+
+When you include the database option, Slik Dev adds the following to your project:
+
+- **`prisma/schema.prisma`** — A Prisma schema file with a `datasource` block pointing to `DATABASE_URL` and a starter `User` model.
+- **`lib/prisma.ts`** — A singleton Prisma Client instance safe to use in Next.js Server Components and API routes.
+- **`DATABASE_URL`** — A placeholder in your `.env` file ready for your connection string.
+- **Prisma dependencies** — `prisma` and `@prisma/client` added to `package.json`.
+
+## Enabling Database at Scaffold Time
+
+<Steps>
+  <Step title="Run the scaffolding command">
+    ```bash
+    npx create-slik@latest my-app
+    ```
+  </Step>
+  <Step title="Select your stack and theme">
+    Choose **Next.js** as your stack and **Bento** as your theme (or whichever options become available for your version).
+  </Step>
+  <Step title="Opt in to the database when prompted">
+    ```
+    ? Include PostgreSQL + Prisma database setup?
+    ❯ Yes
+      No
+    ```
+
+    Select **Yes** to have Slik Dev generate the Prisma configuration alongside your app.
+  </Step>
+  <Step title="Complete the install">
+    ```bash
+    cd my-app
+    npm install
+    ```
+
+    Prisma and its client are now installed. Before running the dev server, you need to connect a database.
+  </Step>
+</Steps>
+
+## Post-Scaffold Database Setup
+
+<Steps>
+  <Step title="Create a PostgreSQL database">
+    The recommended option is [Supabase](https://supabase.com) — it provides a free hosted PostgreSQL instance with a connection string you can copy immediately.
+
+    1. Sign in at [supabase.com](https://supabase.com) and create a new project.
+    2. Go to **Project Settings → Database**.
+    3. Copy the **Connection string** under the **URI** tab. It looks like:
+
+    ```
+    postgresql://postgres:[YOUR-PASSWORD]@db.abcdefghijkl.supabase.co:5432/postgres
+    ```
+
+    Any other PostgreSQL provider (Railway, Neon, PlanetScale-compatible, self-hosted) also works — just use its connection string.
+  </Step>
+  <Step title="Set DATABASE_URL in your .env file">
+    Open `.env` in your project root and replace the placeholder:
+
+    ```env
+    DATABASE_URL="postgresql://postgres:[YOUR-PASSWORD]@db.abcdefghijkl.supabase.co:5432/postgres"
+    ```
+
+    <Warning>
+      Never commit your `.env` file. It is already listed in `.gitignore` in your generated project — verify this before your first push.
+    </Warning>
+  </Step>
+  <Step title="Push your schema to the database">
+    Run `prisma db push` to apply your schema to the connected database without generating a migration file. This is the recommended flow for early development:
+
+    ```bash
+    npx prisma db push
+    ```
+
+    You should see output confirming each model was synchronized:
+
+    ```
+    Environment variables loaded from .env
+    Prisma schema loaded from prisma/schema.prisma
+    Datasource "db": PostgreSQL database "postgres"
+
+    🚀  Your database is now in sync with your Prisma schema.
+    ```
+  </Step>
+  <Step title="Start your dev server">
+    ```bash
+    npm run dev
+    ```
+
+    Your app is now running at `http://localhost:3000` with a live database connection.
+  </Step>
+</Steps>
+
+## Working with Prisma
+
+The basic Prisma development loop is: edit your schema, push to the database, and use the generated client.
+
+### 1. Edit your schema
+
+Open `prisma/schema.prisma` and define your models:
+
+```prisma
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+}
+```
+
+### 2. Push changes to the database
+
+```bash
+npx prisma db push
+```
+
+Run this every time you update your schema. It syncs the database structure and regenerates the Prisma Client types.
+
+### 3. Use the Prisma Client in your app
+
+Your generated project includes a singleton client at `lib/prisma.ts`. Import it directly in any Server Component or API route:
+
+```ts
+import { prisma } from "@/lib/prisma";
+
+// Fetch all users
+const users = await prisma.user.findMany();
+
+// Create a new record
+const newUser = await prisma.user.create({
+  data: {
+    email: "user@example.com",
+    name: "Jane Doe",
+  },
+});
+
+// Query with a filter
+const user = await prisma.user.findUnique({
+  where: { email: "user@example.com" },
+});
+```
+
+<Note>
+  Always use the singleton from `lib/prisma.ts` rather than instantiating `new PrismaClient()` directly. Next.js hot-reload can create too many concurrent database connections if the client is re-instantiated on every module evaluation.
+</Note>
+
+## Recommended: Supabase
+
+Supabase is the recommended hosted PostgreSQL option for Slik Dev projects because it:
+
+- Provides a **free tier** suitable for development and small production workloads
+- Gives you a PostgreSQL connection string compatible with Prisma out of the box
+- Includes a **table editor and SQL runner** in its dashboard for inspecting your data
+- Supports **Row Level Security (RLS)** if you later want database-level access control
+
+<Tip>
+  You can open the Prisma Studio UI to browse and edit your database records locally — no need to log into Supabase for quick data inspection:
+
+  ```bash
+  npx prisma studio
+  ```
+
+  This opens a browser-based database explorer at `http://localhost:5555`.
+</Tip>

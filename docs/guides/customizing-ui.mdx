@@ -1,0 +1,265 @@
+---
+title: "Customize Your Slik Dev App's UI and Branding"
+description: "Learn how to change colors, swap icons, update your brand, adjust animations, and control dark mode in your Slik Dev-generated Next.js application."
+---
+
+Slik Dev generates a fully styled application — but the entire visual layer is yours to own. Every color, icon, animation, and layout decision is expressed in plain Tailwind classes, TypeScript component props, and a single `tailwind.config.ts` file. This guide walks through each customization surface so you can make the app look and feel exactly like your product.
+
+## Changing the color palette
+
+Your generated project's color system lives in `tailwind.config.ts`. Slik Dev uses CSS custom properties (`var(--background)`, `var(--foreground)`, `var(--muted)`) for semantic colors, and extends Tailwind's palette for specific design tokens.
+
+Open `tailwind.config.ts` and extend the `colors` object to add your brand colors:
+
+<CodeGroup>
+
+```ts Before (generated)
+theme: {
+  extend: {
+    colors: {
+      background: 'var(--background)',
+      foreground: 'var(--foreground)',
+      muted: 'var(--muted)',
+    },
+  },
+},
+```
+
+```ts After (with brand color)
+theme: {
+  extend: {
+    colors: {
+      background: 'var(--background)',
+      foreground: 'var(--foreground)',
+      muted: 'var(--muted)',
+      brand: {
+        DEFAULT: '#7c3aed',   // your primary brand color
+        light: '#a78bfa',
+        dark: '#5b21b6',
+      },
+    },
+  },
+},
+```
+
+</CodeGroup>
+
+After adding your color, replace the `emerald-500` and `cyan-500` accent classes throughout your components. These are the two accent colors Slik Dev uses most heavily — search for them across `app/` and `components/` and swap them to your brand color:
+
+```bash
+# Find every file using emerald-500
+grep -r "emerald-500" ./app ./components
+```
+
+<Tip>
+Slik Dev's components use `text-emerald-500` for primary accents and `text-cyan-500` for secondary accents. If your brand uses a single primary color, you can safely replace both with a single value.
+</Tip>
+
+You can also redefine the CSS custom properties in `app/globals.css` (or `index.css`) to change the base background and foreground colors:
+
+```css
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --muted: #f4f4f5;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #fafafa;
+  --muted: #18181b;
+}
+```
+
+---
+
+## Updating the logo and brand name in the Navbar
+
+The Navbar component at `components/layout/Navbar.tsx` renders the brand logo as a text mark with an accented period. To replace it with your own name or a logo image:
+
+<CodeGroup>
+
+```tsx Text logo (generated)
+<Link to="/" className="text-2xl font-bold font-sans tracking-tight">
+  slik<span className="text-emerald-500">.</span>
+</Link>
+```
+
+```tsx Custom text brand
+<Link href="/" className="text-2xl font-bold font-sans tracking-tight">
+  acme<span className="text-brand">.</span>
+</Link>
+```
+
+```tsx Image logo
+import Image from 'next/image';
+
+<Link href="/" className="flex items-center gap-2">
+  <Image src="/logo.svg" alt="Acme" width={28} height={28} />
+  <span className="text-xl font-bold">Acme</span>
+</Link>
+```
+
+</CodeGroup>
+
+Remember to update the Footer as well — it has its own instance of the logo text at `components/layout/Footer.tsx`.
+
+<Note>
+If you use an SVG logo, place it in the `public/` directory and reference it as `/logo.svg`. Next.js serves everything in `public/` at the root URL path.
+</Note>
+
+---
+
+## Adjusting layout and spacing
+
+Slik Dev uses Tailwind utility classes for all spacing. The most common layout containers use `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` for centered, responsive content. To adjust the max width or horizontal padding globally, find and update these classes in your page and section components.
+
+For vertical rhythm, sections use `py-24` (96px top and bottom padding). To make sections feel more compact:
+
+<CodeGroup>
+
+```tsx Default section spacing
+<section className="py-24 ...">
+```
+
+```tsx Reduced section spacing
+<section className="py-16 ...">
+```
+
+</CodeGroup>
+
+For component-level spacing adjustments, Tailwind's spacing scale (`p-4`, `p-6`, `gap-6`, `mb-8`, etc.) maps directly to 4px increments — `p-6` is 24px, `p-8` is 32px.
+
+---
+
+## Tweaking Framer Motion animations
+
+Every animated element in Slik Dev uses `framer-motion`'s `motion.div` with `whileInView` for scroll-triggered entrance animations. The standard pattern looks like this:
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: idx * 0.1, duration: 0.5 }}
+>
+```
+
+You can tune three properties on `transition` to change how the animation feels:
+
+| Property | Default | Effect |
+|----------|---------|--------|
+| `duration` | `0.5` | How long the animation takes in seconds. Lower = snappier. |
+| `delay` | `idx * 0.1` | Stagger delay per item in a list. Set to `0` to animate all at once. |
+| `ease` | Framer default | Controls the easing curve. Try `"easeOut"` or `[0.16, 1, 0.3, 1]` for a spring-like feel. |
+
+<CodeGroup>
+
+```tsx Default animation
+transition={{ delay: idx * 0.1, duration: 0.5 }}
+```
+
+```tsx Faster, spring-like animation
+transition={{ delay: idx * 0.05, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+```
+
+```tsx No stagger, instant entrance
+transition={{ duration: 0.3, ease: "easeOut" }}
+```
+
+</CodeGroup>
+
+<Tip>
+Set `viewport={{ once: true }}` to only trigger the animation the first time an element enters the viewport — this is Slik Dev's default. Remove it if you want the animation to replay every time the user scrolls back up.
+</Tip>
+
+---
+
+## Controlling dark mode
+
+Dark mode is enabled by default and managed through a `ThemeContext` that reads from and writes to `localStorage` under the key `"theme"`. The initial value is determined in this order:
+
+1. If `localStorage.getItem('theme')` exists, use it.
+2. Otherwise, use the OS-level `prefers-color-scheme` media query.
+
+The theme is applied by toggling a `dark` class on `document.documentElement`, which activates all `dark:` Tailwind variants across the app.
+
+To change the **default** mode to light (ignoring the OS preference), modify `ThemeContext.tsx`:
+
+<CodeGroup>
+
+```tsx Default (respects OS preference)
+const [theme, setTheme] = useState<Theme>(() => {
+  const savedTheme = localStorage.getItem('theme') as Theme | null
+  if (savedTheme) return savedTheme
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+})
+```
+
+```tsx Always default to light
+const [theme, setTheme] = useState<Theme>(() => {
+  const savedTheme = localStorage.getItem('theme') as Theme | null
+  if (savedTheme) return savedTheme
+  return 'light'  // ignore OS preference, default to light
+})
+```
+
+</CodeGroup>
+
+Dark mode transitions are set at `duration-300` globally via Tailwind, giving every color change a smooth 300ms cross-fade.
+
+---
+
+## Using and swapping Lucide React icons
+
+Slik Dev uses [Lucide React](https://lucide.dev) for all icons throughout the app. Every icon is a named import from the `lucide-react` package:
+
+```tsx
+import { Zap, Palette, Shield, Database, Layout, Command } from 'lucide-react';
+```
+
+To swap an icon, replace the component name with any valid Lucide icon name. Browse the full catalog at `lucide.dev/icons` and search by keyword. All icons accept standard props:
+
+```tsx
+// Size
+<Zap className="w-6 h-6" />
+
+// Color via Tailwind
+<Shield className="w-6 h-6 text-emerald-500" />
+
+// Stroke width
+<Database className="w-6 h-6" strokeWidth={1.5} />
+```
+
+<Tip>
+Icons in the features grid use `w-6 h-6` (24px). Icons in the tech stack grid use `w-10 h-10` container divs with the icon inside. Match the size to the surrounding container to keep visual balance.
+</Tip>
+
+---
+
+## Conditional styling with clsx and tailwind-merge
+
+Slik Dev's tech stack includes both `clsx` and `tailwind-merge` for composing Tailwind classes conditionally without conflicts. Use them together whenever you need to apply classes based on component state or props:
+
+```tsx
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// Usage in a component
+<button
+  className={cn(
+    'px-5 py-2 text-sm font-medium rounded-lg transition-all duration-200',
+    isActive
+      ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+      : 'text-gray-500 hover:text-gray-900'
+  )}
+>
+```
+
+<Note>
+`tailwind-merge` resolves Tailwind class conflicts automatically — for example, if you pass both `p-4` and `p-6`, it keeps only the last one rather than both. This prevents the subtle styling bugs that `clsx` alone can produce with Tailwind.
+</Note>

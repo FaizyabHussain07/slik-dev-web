@@ -1,0 +1,165 @@
+---
+title: "Quickstart: Build a SaaS App with Slik Dev"
+description: "Go from zero to a running full-stack SaaS application in under 60 seconds using the Slik Dev CLI — no configuration required before your first prompt."
+---
+
+Slik Dev gets you from an empty directory to a running full-stack SaaS app with a single command. This guide walks you through the entire process: running the CLI, answering the interactive prompts, installing dependencies, and seeing your app live at `localhost:3000`.
+
+## Prerequisites
+
+Before you start, make sure you have **Node.js** installed on your machine. Slik Dev uses `npx`, which is bundled with npm and available in every Node.js installation. No global install of Slik is required.
+
+<Note>
+  Node.js LTS (v18 or later) is recommended. You can check your version with `node --version`. If you need to install Node.js, see the [Installation guide](/installation) for details.
+</Note>
+
+## Scaffold your app
+
+<Steps>
+  <Step title="Run the create-slik command">
+    Open your terminal and run the following command, replacing `my-app` with your project name:
+
+    <CodeGroup>
+      ```bash npm
+      npx create-slik@latest my-app
+      ```
+
+      ```bash yarn
+      yarn create slik my-app
+      ```
+
+      ```bash pnpm
+      pnpm create slik@latest my-app
+      ```
+    </CodeGroup>
+
+    `npx` fetches the latest version of the `create-slik` package automatically — no separate install step needed.
+  </Step>
+
+  <Step title="Answer the interactive prompts">
+    The CLI walks you through a short set of questions to configure your project. Here is what to expect:
+
+    ```
+    $ npx create-slik@latest my-app
+
+    ? Which framework would you like to use?
+      ❯ Next.js       (currently available)
+        React         (coming soon)
+        HTML          (coming soon)
+
+    ? Which UI theme would you like?
+      ❯ Bento         (currently available)
+        Frost         (coming soon)
+        Mono          (coming soon)
+
+    ? Would you like to include a database? (PostgreSQL + Prisma)
+      ❯ Yes
+        No
+
+    ? Would you like to set up authentication? (NextAuth / Auth.js)
+      ❯ Yes
+        No
+    ```
+
+    <Tip>
+      If you select **Next.js + Bento**, you get the full premium experience that is available today. The other framework and theme combinations are actively in development.
+    </Tip>
+  </Step>
+
+  <Step title="Watch the CLI scaffold your project">
+    Once you confirm your selections, Slik builds your project. You will see output like this in your terminal:
+
+    ```
+    ✔  Creating project structure...
+    ✔  Installing dependencies...
+    ✔  Setting up authentication...
+    ✨ Your app is ready! Start building.
+    ```
+
+    Slik creates the full directory structure, writes all configuration files, and wires together every selected feature before handing control back to you.
+  </Step>
+
+  <Step title="Install dependencies">
+    Move into your new project directory and install packages:
+
+    <CodeGroup>
+      ```bash npm
+      cd my-app
+      npm install
+      ```
+
+      ```bash yarn
+      cd my-app
+      yarn install
+      ```
+
+      ```bash pnpm
+      cd my-app
+      pnpm install
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Start the development server">
+    <CodeGroup>
+      ```bash npm
+      npm run dev
+      ```
+
+      ```bash yarn
+      yarn dev
+      ```
+
+      ```bash pnpm
+      pnpm dev
+      ```
+    </CodeGroup>
+
+    Your app will be available at [http://localhost:3000](http://localhost:3000).
+  </Step>
+</Steps>
+
+## What you will see at localhost:3000
+
+When you open your browser, you get a fully rendered, production-quality SaaS landing page — not a blank slate. The Bento theme ships with:
+
+- An animated hero section with a live terminal mockup demonstrating the CLI
+- Responsive navigation with dark mode toggle (dark mode is on by default)
+- A complete dashboard layout with sidebar, stat cards, and a chart panel
+- Smooth Framer Motion transitions throughout every component
+- A mobile-friendly layout with navigation drawer
+
+<Info>
+  Dark mode is enabled by default and persists across sessions using `localStorage`. Your users will see the preference they set the next time they visit.
+</Info>
+
+## Tech stack inside your generated app
+
+Your scaffolded project uses the following technologies:
+
+| Technology | Role |
+|------------|------|
+| Next.js (App Router) | Framework |
+| TypeScript | Language |
+| Tailwind CSS + clsx + tailwind-merge | Styling |
+| Framer Motion | Animations |
+| Lucide React | Icons |
+| NextAuth / Auth.js | Authentication |
+| PostgreSQL + Prisma + Supabase | Database (if selected) |
+
+## Next steps
+
+<CardGroup cols={2}>
+  <Card title="Configuration" icon="sliders" href="/configuration">
+    Customize your auth providers, database connection string, and environment variables.
+  </Card>
+  <Card title="Themes" icon="swatchbook" href="/configuration/themes">
+    Learn more about the Bento, Frost, and Mono theme palettes and how to switch between them.
+  </Card>
+  <Card title="Authentication" icon="shield" href="/configuration/auth">
+    Add OAuth providers, configure magic links, and manage sessions with NextAuth.
+  </Card>
+  <Card title="Database" icon="database" href="/configuration/database">
+    Set up your Prisma schema, connect to Supabase, and run your first migration.
+  </Card>
+</CardGroup>

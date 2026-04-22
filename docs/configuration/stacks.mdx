@@ -1,0 +1,91 @@
+---
+title: "Choose a Framework Stack for Your Slik Dev App"
+description: "Slik Dev supports Next.js, React, and HTML stacks. Learn what each option gives you and how to select your stack during the CLI scaffolding prompt."
+---
+
+When you run `npx create-slik@latest my-app`, the CLI immediately asks you to choose a framework stack. Your choice determines the project structure, routing conventions, and server-side capabilities of the app Slik Dev generates. Currently, Next.js is the production-ready option — with React and HTML support actively in development.
+
+## Available Stacks
+
+<CardGroup cols={3}>
+  <Card title="Next.js" icon="n">
+    App Router, server-side rendering, file-based routing, and API routes — all pre-configured. The only fully available stack today.
+  </Card>
+  <Card title="React" icon="react">
+    Client-side React with a component architecture optimized for SPAs. Coming soon.
+  </Card>
+  <Card title="HTML" icon="code">
+    Vanilla HTML/CSS/JS output for maximum portability. Coming soon.
+  </Card>
+</CardGroup>
+
+<Note>
+  **Next.js is the only stack available today.** The React and HTML stacks are under active development. Star the [Slik Dev repository](https://github.com/FaizyabHussain07/slik-dev-web) to get notified when they ship.
+</Note>
+
+## What Next.js Gives You
+
+When you select Next.js, Slik Dev generates a full application built on the Next.js App Router. You get:
+
+- **Server-side rendering (SSR)** — Pages are rendered on the server for faster initial loads and better SEO.
+- **App Router** — The modern Next.js routing system using the `app/` directory, React Server Components, and nested layouts.
+- **File-based routing** — Routes are defined by the folder structure. No manual router configuration required.
+- **API routes** — Backend endpoints live alongside your frontend in the same project.
+- **TypeScript** — The entire project is end-to-end typed with strict TypeScript configuration.
+- **Tailwind CSS** — Utility-first styling with `clsx` and `tailwind-merge` pre-installed.
+- **Framer Motion** — Fluid, production-quality animations across all generated components.
+
+After scaffolding, your app runs at `http://localhost:3000` with a landing page, auth screens, dashboard, and admin panel already in place.
+
+## Selecting Your Stack
+
+The CLI prompts you to pick a stack immediately after you run the init command.
+
+<Steps>
+  <Step title="Run the scaffolding command">
+    ```bash
+    npx create-slik@latest my-app
+    ```
+  </Step>
+  <Step title="Choose your stack at the prompt">
+    The CLI presents the stack options interactively:
+
+    ```
+    ? Which stack would you like to use?
+    ❯ Next.js
+      React     (coming soon)
+      HTML      (coming soon)
+    ```
+
+    Use the arrow keys to navigate, then press `Enter` to confirm.
+  </Step>
+  <Step title="Continue with the remaining prompts">
+    After selecting your stack, the CLI continues with theme, auth, and database configuration. See the individual pages for each option.
+  </Step>
+  <Step title="Install and start the dev server">
+    ```bash
+    cd my-app
+    npm install
+    npm run dev
+    ```
+
+    Your app is live at `http://localhost:3000`.
+  </Step>
+</Steps>
+
+## Stack Comparison
+
+| Feature | Next.js | React | HTML |
+|---|---|---|---|
+| Status | Available | Coming soon | Coming soon |
+| Rendering | SSR + CSR | CSR | Static |
+| Routing | App Router (file-based) | Client-side | N/A |
+| API routes | Yes | No | No |
+| TypeScript | Yes | Yes | No |
+| Tailwind CSS | Yes | Yes | No |
+| Auth (NextAuth) | Yes | Planned | No |
+| Database (Prisma) | Yes | Planned | No |
+
+<Tip>
+  If you're building a SaaS product today, choose **Next.js**. It's the only stack with full theme, auth, and database support and is the combination Slik Dev is optimized for.
+</Tip>

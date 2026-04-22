@@ -1,0 +1,96 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Slik",
+  "logo": {
+    "dark": "/logo-dark.png",
+    "light": "/logo-light.png"
+  },
+  "theme": "luma",
+  "colors": {
+    "primary": "#10b981",
+    "light": "#34d399",
+    "dark": "#059669",
+    "background": {
+      "dark": "#09090b",
+      "light": "#ffffff"
+    }
+  },
+  "favicon": "/favicon.png",
+  "topbarCtaButton": {
+    "name": "Try Slik",
+    "url": "https://slik-dev.vercel.app/"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Website",
+        "href": "https://slik-dev.vercel.app"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/FaizyabHussain07/slik-dev-web"
+      }
+    ]
+  },
+  "footer": {
+    "links": [
+      {
+        "label": "Website",
+        "href": "https://slik-dev.vercel.app"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/FaizyabHussain07/slik-dev-web",
+        "icon": "github"
+      },
+      {
+        "label": "Twitter",
+        "href": "https://twitter.com/faizyabhussain",
+        "icon": "twitter"
+      }
+    ]
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "installation"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/stacks",
+              "configuration/themes",
+              "configuration/auth",
+              "configuration/database"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/first-project",
+              "guides/customizing-ui",
+              "guides/adding-pages",
+              "guides/deploying"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/cli",
+              "reference/tech-stack",
+              "reference/faq"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

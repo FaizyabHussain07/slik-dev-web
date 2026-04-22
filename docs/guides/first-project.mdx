@@ -1,0 +1,165 @@
+---
+title: "Build Your First SaaS App with Slik Dev"
+description: "A complete walkthrough for scaffolding, exploring, and customizing your first production-ready full-stack SaaS application using Slik Dev."
+---
+
+Slik Dev gets you from an empty terminal to a running, premium-looking SaaS application in under 60 seconds. This guide walks you through every step — from running the CLI command to touring the generated pages and making your first real customization.
+
+<Steps>
+
+<Step title="Run the Slik CLI">
+
+Open your terminal and run the following command, replacing `my-app` with whatever you want your project folder to be named:
+
+```bash
+npx create-slik@latest my-app
+```
+
+The CLI will prompt you to make a few selections before generating your project:
+
+- **Stack** — Choose your framework. Currently, **Next.js** is the fully available option with App Router support. React and HTML templates are in progress.
+- **Theme** — Choose a UI theme. **Bento** is the available production theme today. Frost and Mono are coming soon.
+- **Database** — Optionally include **PostgreSQL via Prisma**. If you opt in, Slik pre-configures `prisma/schema.prisma` and wires the database client into your app.
+- **Auth** — **NextAuth/Auth.js** is included and pre-configured. OAuth providers, magic links, and session management are ready out of the box.
+
+<Tip>
+If you are prototyping and do not need a database yet, skip it during setup. You can always add Prisma manually later.
+</Tip>
+
+</Step>
+
+<Step title="Install dependencies and start the dev server">
+
+Once the CLI finishes scaffolding, navigate into your project and install dependencies:
+
+```bash
+cd my-app
+npm install
+npm run dev
+```
+
+Open your browser at `http://localhost:3000`. Your SaaS app is live with a fully animated landing page, auth flow, dashboard, and admin panel — no additional configuration needed.
+
+<Note>
+The dev server uses Next.js App Router with fast refresh. Any changes you make to files in `app/` or `components/` will be reflected in the browser instantly.
+</Note>
+
+</Step>
+
+<Step title="Explore the generated project structure">
+
+Slik Dev generates a clean, predictable Next.js project. Here is what the directory looks like for a Next.js + Bento project:
+
+```
+my-app/
+├── app/
+│   ├── page.tsx          ← Landing page
+│   ├── auth/             ← Sign in / sign up pages
+│   ├── dashboard/        ← Authenticated user dashboard
+│   └── admin/            ← Admin panel with data table view
+├── components/           ← Reusable UI components (Navbar, Footer, cards, etc.)
+├── lib/                  ← Utilities, database client, auth config
+├── public/               ← Static assets (favicon, images)
+├── prisma/               ← Only present if you opted into database
+│   └── schema.prisma
+├── package.json
+├── tailwind.config.ts
+└── tsconfig.json
+```
+
+All pages live under `app/` and follow Next.js App Router conventions. Each folder in `app/` maps directly to a URL route — `app/dashboard/page.tsx` is served at `/dashboard`.
+
+</Step>
+
+<Step title="Tour the generated pages">
+
+Visit each route in your browser to see what Slik has built for you:
+
+<CardGroup cols={2}>
+  <Card title="Landing Page — /" icon="house">
+    A fully animated hero section, feature cards, and a call-to-action strip. Built with Framer Motion scroll animations and Tailwind CSS. Dark mode is active by default.
+  </Card>
+  <Card title="Auth Pages — /auth" icon="lock">
+    Sign in and sign up forms with full NextAuth/Auth.js integration. OAuth buttons and email/password flows are wired and ready. A glassmorphism card design sits centered on a radial gradient background.
+  </Card>
+  <Card title="Dashboard — /dashboard" icon="chart-bar">
+    A sidebar navigation layout with stat cards and a bar chart. This is the main authenticated view where your users will spend their time. Responsive — collapses to mobile-friendly layout automatically.
+  </Card>
+  <Card title="Admin Panel — /admin" icon="shield">
+    A top navbar + side nav + data table layout for managing users and records. Includes sortable table rows, action buttons, and status badges.
+  </Card>
+</CardGroup>
+
+<Info>
+Dark mode is enabled by default and persisted via `localStorage`. Users who toggle to light mode will stay in light mode across sessions. See the [Customize UI guide](/guides/customizing-ui) for how to change the default.
+</Info>
+
+</Step>
+
+<Step title="Make your first customization — update the app name and branding">
+
+The fastest first edit is replacing the placeholder brand name with your own. Open `components/layout/Navbar.tsx` (or wherever the Navbar component lives in your generated project) and find the logo text:
+
+<CodeGroup>
+
+```tsx Before
+<Link to="/" className="text-2xl font-bold font-sans tracking-tight">
+  slik<span className="text-emerald-500">.</span>
+</Link>
+```
+
+```tsx After
+<Link to="/" className="text-2xl font-bold font-sans tracking-tight">
+  acme<span className="text-emerald-500">.</span>
+</Link>
+```
+
+</CodeGroup>
+
+Do the same in `components/layout/Footer.tsx` to keep branding consistent across the app.
+
+Next, open `app/page.tsx` and update the hero headline and meta title to reflect your product name and value proposition. The generated hero section will have a large `<h1>` and a supporting `<p>` — both are plain text and easy to edit.
+
+<Tip>
+Search for the string `SaaS.` across the project — Slik Dev uses it as the placeholder brand name in the Landing mockup elements. Replace all instances with your actual product name.
+</Tip>
+
+</Step>
+
+<Step title="Push your first database schema (if you opted in)">
+
+If you chose to include PostgreSQL with Prisma, your `prisma/schema.prisma` file is already scaffolded with a `User` model wired to NextAuth. To apply the schema to your database, add your connection string to `.env`:
+
+```bash
+DATABASE_URL="postgresql://user:password@localhost:5432/mydb"
+```
+
+Then push the schema:
+
+```bash
+npx prisma db push
+```
+
+<Warning>
+Never commit your `.env` file to version control. Slik generates a `.gitignore` that excludes it, but double-check before your first commit.
+</Warning>
+
+</Step>
+
+</Steps>
+
+## What to do next
+
+Now that your app is running and you have made your first edits, here are the natural next steps:
+
+<CardGroup cols={3}>
+  <Card title="Customize the UI" icon="palette" href="/guides/customizing-ui">
+    Change your color palette, swap Lucide icons, and tweak Framer Motion animations.
+  </Card>
+  <Card title="Add new pages" icon="file-plus" href="/guides/adding-pages">
+    Use Next.js App Router file-based routing to add a Pricing page, blog, or any custom route.
+  </Card>
+  <Card title="Deploy to production" icon="rocket" href="/guides/deploying">
+    Ship to Vercel in minutes with the right environment variables configured.
+  </Card>
+</CardGroup>

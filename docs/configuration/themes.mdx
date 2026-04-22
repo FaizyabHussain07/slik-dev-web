@@ -1,0 +1,113 @@
+---
+title: "Slik UI Themes: Bento, Frost, and Mono Explained"
+description: "Slik Engine ships three UI themes: Bento, Frost, and Mono. Learn each theme's aesthetic, what screens are generated, and how to pick one during scaffolding."
+---
+
+Every Slik project ships with a complete, handcrafted UI theme applied across every generated screen — from the landing page to the admin panel. Themes in Slik are not color palettes or CSS variables you tweak yourself; they are fully designed layout systems with Tailwind CSS and Framer Motion animations already wired in. You choose your theme once during the CLI prompt, and Slik generates the entire project styled for that aesthetic.
+
+## The Three Themes
+
+<Tabs>
+  <Tab title="Bento">
+    **Bento** is a bento-grid style layout inspired by the modular card-based design aesthetic popular in modern SaaS products. Content is organized into irregular grid cells that create visual hierarchy without relying on heavy typography or dense copy.
+
+    - Grid-based composition with asymmetric card sizes
+    - Clean, structured spacing with a modern SaaS feel
+    - Emerald accent color system against deep dark backgrounds
+    - Smooth Framer Motion entrance animations on all grid cells
+    - Fully responsive — grid reflows gracefully on mobile
+
+    **Status: Available now with Next.js.**
+  </Tab>
+  <Tab title="Frost">
+    **Frost** is a glassmorphism theme with a frost-and-ice aesthetic. UI surfaces use translucent backgrounds with blur effects, subtle borders, and cool-toned color grading to create a layered, premium look.
+
+    - Glassmorphism panels with `backdrop-blur` and semi-transparent fills
+    - Cool-toned color palette (blues, cyans, whites)
+    - Layered depth through overlapping translucent cards
+    - Ideal for productivity tools and polished B2B interfaces
+
+    **Status: Coming soon.**
+  </Tab>
+  <Tab title="Mono">
+    **Mono** is a monochromatic, typographic-first theme built for developers and technical audiences who prefer minimal visual noise. The design is anchored in strong type hierarchy and whitespace rather than color or decoration.
+
+    - Strict black-and-white palette with single accent
+    - Heavy emphasis on typography scale and spacing
+    - No gradients — contrast comes from weight and size
+    - Ideal for developer tools, CLIs, and technical SaaS
+
+    **Status: Coming soon.**
+  </Tab>
+</Tabs>
+
+<Note>
+  **Bento + Next.js is the only available combination today.** Frost and Mono are under active development. The full availability matrix is visible in the [Stack Matrix](/configuration/stacks) section of the docs.
+</Note>
+
+## Dark Mode
+
+All Slik themes include dark mode by default. There is no additional configuration required — dark mode is:
+
+- **On by default** — The generated app opens in dark mode out of the box.
+- **User-controlled** — A theme toggle is included in the generated navbar, allowing users to switch between dark and light at any time.
+- **`localStorage` persistent** — The user's preference is saved in `localStorage` and respected on every subsequent visit. No flash of incorrect theme on load.
+- **Smoothly transitioned** — All color changes animate with a `0.3s` CSS transition so the switch never feels jarring.
+
+## Generated Screens
+
+Regardless of which theme you choose, Slik generates four complete screens for your app:
+
+<CardGroup cols={2}>
+  <Card title="Landing" icon="house">
+    A full marketing landing page with hero section, feature cards, social proof elements, and a call-to-action. Fully animated with Framer Motion scroll-in effects.
+  </Card>
+  <Card title="Auth" icon="lock">
+    Sign-in and sign-up screens with form inputs, OAuth provider buttons, and a magic link option. Pre-wired to NextAuth/Auth.js.
+  </Card>
+  <Card title="Dashboard" icon="chart-bar">
+    A sidebar-based application shell with stat cards, a data chart, and a main content area. Responsive — sidebar collapses on mobile.
+  </Card>
+  <Card title="Admin" icon="shield">
+    A top-navigation admin panel with a data table, row actions, and filtering controls. Ready for user management or content moderation flows.
+  </Card>
+</CardGroup>
+
+You can preview all four screens for any stack and theme combination before installing using the Slik theme previewer at [slik.dev/preview](https://slik.dev/preview).
+
+## Selecting Your Theme
+
+<Steps>
+  <Step title="Run the scaffolding command">
+    ```bash
+    npx create-slik@latest my-app
+    ```
+  </Step>
+  <Step title="Select your stack first">
+    Choose **Next.js** when prompted. Theme selection comes next.
+  </Step>
+  <Step title="Choose your theme at the prompt">
+    ```
+    ? Which theme (vibe) would you like?
+    ❯ Bento
+      Frost     (coming soon)
+      Mono      (coming soon)
+    ```
+  </Step>
+  <Step title="Complete the remaining prompts">
+    After confirming your theme, the CLI continues with auth and database configuration.
+  </Step>
+  <Step title="Launch your app">
+    ```bash
+    cd my-app
+    npm install
+    npm run dev
+    ```
+
+    Open `http://localhost:3000` to see your themed app running locally.
+  </Step>
+</Steps>
+
+<Tip>
+  Not sure which theme fits your product? Visit the live theme previewer at [slik.dev/preview](https://slik.dev/preview) to browse all four generated screens — Landing, Auth, Dashboard, and Admin — before you scaffold.
+</Tip>

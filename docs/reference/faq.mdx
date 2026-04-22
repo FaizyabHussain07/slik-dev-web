@@ -1,0 +1,77 @@
+---
+title: "Slik Dev: Frequently Asked Questions and Fixes"
+description: "Answers to common questions about Slik Dev: available stacks and themes, setup issues, database and auth configuration, and how to contribute."
+---
+
+This page answers the most common questions about using Slik Dev, from initial setup through deployment. If you run into an issue that isn't covered here, check the [GitHub repository](https://github.com/FaizyabHussain07/slik-dev-web) for open issues and discussions.
+
+<AccordionGroup>
+  <Accordion title="Which stacks and themes are available right now?">
+    Currently, the **Next.js + Bento** combination is fully available. React and HTML stacks, along with the Frost and Mono themes, are actively in development and will be released soon. Star the [GitHub repo](https://github.com/FaizyabHussain07/slik-dev-web) to get notified when new combinations ship.
+  </Accordion>
+
+  <Accordion title="Do I need to install anything globally before using Slik?">
+    No global installation is required. Running `npx create-slik@latest my-app` downloads and executes the CLI automatically. The only prerequisite is having **Node.js 18 LTS or later** and **npm** installed on your machine.
+  </Accordion>
+
+  <Accordion title="Can I use Slik Dev with an existing project?">
+    No. Slik Dev generates brand-new projects from scratch — it is not a migration tool or a component library you add to an existing codebase. Run `npx create-slik@latest` in a new directory to start fresh.
+  </Accordion>
+
+  <Accordion title="My dev server won't start after scaffolding. What should I check?">
+    Work through these steps:
+
+    1. Make sure you ran `npm install` inside the project directory before `npm run dev`.
+    2. Check your Node.js version — run `node -v` and confirm it's **18.x or later**.
+    3. Check for port conflicts: if something is already running on port 3000, Next.js will prompt you to use a different port.
+    4. If database was selected, make sure your `.env.local` file has a valid `DATABASE_URL` before starting the server.
+  </Accordion>
+
+  <Accordion title="How do I update dependencies in my Slik Dev-generated app?">
+    Slik Dev generates your project with the latest stable versions at the time of scaffolding. To update later, run:
+
+    ```bash
+    npm update
+    ```
+
+    For a full upgrade of major versions, use a tool like `npx npm-check-updates` to review and apply changes.
+  </Accordion>
+
+  <Accordion title="How do I add my own database tables?">
+    Edit `prisma/schema.prisma` to define your models, then run:
+
+    ```bash
+    npx prisma db push
+    ```
+
+    This syncs your schema to the database. Run `npx prisma generate` afterward to update the Prisma Client types.
+  </Accordion>
+
+  <Accordion title="How do I enable Google or GitHub login?">
+    After scaffolding with auth enabled, open `.env.local` and add your provider credentials:
+
+    ```bash
+    # Google
+    GOOGLE_CLIENT_ID=your-google-client-id
+    GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+    # GitHub
+    GITHUB_CLIENT_ID=your-github-client-id
+    GITHUB_CLIENT_SECRET=your-github-client-secret
+    ```
+
+    Then restart your dev server. See the [auth configuration page](/configuration/auth) for the full setup walkthrough.
+  </Accordion>
+
+  <Accordion title="Is Slik Dev open source?">
+    Yes. Slik Dev is released under the **MIT License** and the source code is available on GitHub at [FaizyabHussain07/slik-dev-web](https://github.com/FaizyabHussain07/slik-dev-web).
+  </Accordion>
+
+  <Accordion title="Can I contribute new themes or stacks?">
+    Absolutely. Fork the repository, create your feature branch, build your theme or stack, and open a pull request. The project actively welcomes community contributions for new themes, UI concepts, and core improvements.
+  </Accordion>
+
+  <Accordion title="What Node.js version does Slik Dev require?">
+    **Node.js 18 LTS or later** is recommended. Earlier versions may work but are not officially supported. Check your version with `node -v`.
+  </Accordion>
+</AccordionGroup>

@@ -1,0 +1,72 @@
+{
+  "projectType": "cli-tool",
+  "projectName": "Slik Engine",
+  "projectDescription": "A CLI scaffolding tool that generates production-ready full-stack SaaS applications with premium UI, authentication, and database setup in seconds.",
+  "theme": "luma",
+  "primaryColor": "#10b981",
+  "lightColor": "#d1fae5",
+  "darkColor": "#064e3b",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "installation"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/stacks",
+              "configuration/themes",
+              "configuration/auth",
+              "configuration/database"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/first-project",
+              "guides/customizing-ui",
+              "guides/adding-pages",
+              "guides/deploying"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/cli",
+              "reference/tech-stack",
+              "reference/faq"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Single-command project scaffolding via `npx create-slik`",
+    "Premium handcrafted UI with Tailwind CSS and Framer Motion animations",
+    "Multiple UI themes: Bento, Frost, Mono",
+    "Built-in authentication with NextAuth/Auth.js (OAuth, magic links, sessions)",
+    "Optional PostgreSQL + Prisma database setup",
+    "Dark mode by default with localStorage persistence",
+    "Fully responsive layouts including dashboards, settings, and landing pages",
+    "End-to-end TypeScript with strict ESLint and Prettier configs",
+    "Support for Next.js and React stacks"
+  ],
+  "publicApiSurface": [
+    "npx create-slik@latest <app-name>",
+    "Stack selection: Next.js / React / HTML",
+    "Theme selection: Bento / Frost / Mono",
+    "Database option: PostgreSQL via Prisma (optional)",
+    "Auth option: NextAuth/Auth.js pre-wired",
+    "npm run dev",
+    "npm run build"
+  ]
+}

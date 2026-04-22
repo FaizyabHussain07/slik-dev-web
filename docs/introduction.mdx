@@ -1,0 +1,78 @@
+---
+title: "What Is Slik Dev? Full-Stack SaaS Scaffolding"
+description: "Slik Dev is a comprehensive toolkit that generates complete, premium full-stack SaaS applications with auth, database, and handcrafted UI in under 60 seconds."
+---
+
+Slik Dev is a comprehensive toolkit that turns a single `npx` command into a fully wired, production-ready SaaS application. Instead of spending hours assembling Next.js, Tailwind CSS, authentication, and database configuration from scratch, you run one command and walk away with a codebase that looks handcrafted and ships immediately.
+
+## The problem with traditional boilerplates
+
+Most developers starting a SaaS project face the same tax: find a boilerplate, clone it, strip out everything that doesn't apply, manually wire together auth, update outdated dependencies, and write UI from scratch — only to end up with something generic. That process routinely costs hours before a single line of product code is written.
+
+Slik replaces that entire cycle with a single interactive CLI prompt.
+
+| Traditional boilerplates | Slik Dev |
+|--------------------------|-------------|
+| Copy-paste disjointed code | One command, everything ready |
+| Manual configuration required | Zero configuration needed |
+| Generic, boring designs | Premium, unique UI designs |
+| Hours of setup time | Under 60 seconds to localhost:3000 |
+| Outdated dependencies | Always up-to-date stack |
+
+## What Slik Dev generates
+
+When you run `npx create-slik@latest my-app`, the CLI asks you a handful of questions — your framework, UI theme, whether you want a database, and whether you want auth — then scaffolds a complete project with:
+
+- A **Next.js** application with App Router, TypeScript, ESLint, and Prettier pre-configured
+- **Tailwind CSS** with `clsx` and `tailwind-merge` already wired in
+- **Framer Motion** animations built into every layout and component
+- **NextAuth / Auth.js** with OAuth and magic link support, fully mapped out
+- **PostgreSQL via Prisma** and Supabase (optional, selected at prompt time)
+- Dark mode enabled by default, with localStorage persistence and smooth 0.3s transitions
+- Fully responsive dashboards, settings pages, and landing pages
+
+## Key features
+
+<CardGroup cols={2}>
+  <Card title="Blazing Fast Init" icon="bolt">
+    Zero configuration prompts beyond your initial selections. You go from an empty folder to a running app at `localhost:3000` in under 60 seconds.
+  </Card>
+  <Card title="Premium Handcrafted UI" icon="palette">
+    Fully animated React components styled with Tailwind CSS are built in from the start — not generic defaults you have to replace.
+  </Card>
+  <Card title="Secure Auth" icon="shield">
+    OAuth, magic links, and robust session management are ready out of the box via NextAuth / Auth.js.
+  </Card>
+  <Card title="Database Ready" icon="database">
+    PostgreSQL and Prisma are pre-configured. Define your schema, run `prisma db push`, and you're live.
+  </Card>
+  <Card title="Responsive Layouts" icon="layout">
+    Mobile navigation, layout drawers, and responsive grids are included and ready for any screen size.
+  </Card>
+  <Card title="Strong Developer Experience" icon="code">
+    End-to-end TypeScript, strict ESLint, and Prettier configs ship with every project out of the box.
+  </Card>
+</CardGroup>
+
+## Who Slik Dev is for
+
+Slik Dev is built for developers who are building SaaS products and want to skip the boilerplate phase entirely. If you know what you're shipping and want to start on the parts that differentiate your product rather than the parts every SaaS shares, Slik Dev is the right tool.
+
+It's also useful for developers prototyping quickly, validating ideas, or building client projects where a premium starting point matters.
+
+## Get started
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Run your first `npx create-slik@latest` command and have an app running in minutes.
+  </Card>
+  <Card title="Installation" icon="download" href="/installation">
+    Check system requirements and learn how `npx` handles everything without a global install.
+  </Card>
+  <Card title="Themes" icon="swatchbook" href="/configuration/themes">
+    Explore the Bento, Frost, and Mono UI themes available for your project.
+  </Card>
+  <Card title="Configuration" icon="sliders" href="/configuration/stacks">
+    Learn how to customize your stack, auth providers, database settings, and more.
+  </Card>
+</CardGroup>

@@ -1,0 +1,170 @@
+---
+title: "Installing Slik Dev: System Requirements and Setup"
+description: "Learn what you need to run Slik Dev, how npx handles the install automatically, and how to verify your environment before scaffolding your first project."
+---
+
+Slik Dev is distributed as an npm package and run via `npx`, which means there is nothing to globally install before you can scaffold your first project. This page covers the system requirements, how `npx` works, the optional global install approach, and how to verify your environment is ready.
+
+## System requirements
+
+Slik Dev has minimal requirements. You need:
+
+- **Node.js** v18 or later (LTS release recommended)
+- **npm** v7 or later (bundled with Node.js v15+), or an equivalent package manager such as yarn or pnpm
+- A terminal with internet access to fetch the package on first run
+
+<Note>
+  npm v7+ is required because Slik Dev uses workspaces and peer dependency resolution features introduced in that version. Running `npm --version` after installing Node.js will confirm you have a compatible release.
+</Note>
+
+## Supported operating systems
+
+Slik Dev runs on all major operating systems:
+
+| Operating System | Status |
+|-----------------|--------|
+| macOS (Intel & Apple Silicon) | Supported |
+| Linux (Debian, Ubuntu, Fedora, Arch, etc.) | Supported |
+| Windows 10 / 11 | Supported |
+| Windows Subsystem for Linux (WSL2) | Supported |
+
+## How npx works
+
+`npx` is a package runner that ships with npm. When you run `npx create-slik@latest`, it:
+
+1. Checks whether `create-slik` is already cached locally
+2. Downloads the latest published version from the npm registry if it is not cached
+3. Executes the package immediately without permanently installing it to your system
+
+This means you always run the latest version of the CLI without managing upgrades manually, and your global `node_modules` stays clean.
+
+## Run Slik without installing
+
+The recommended approach is to use `npx` directly every time:
+
+<CodeGroup>
+  ```bash npm
+  npx create-slik@latest my-app
+  ```
+
+  ```bash yarn
+  yarn create slik my-app
+  ```
+
+  ```bash pnpm
+  pnpm create slik@latest my-app
+  ```
+</CodeGroup>
+
+Replace `my-app` with the name you want for your project directory. The CLI will take it from there.
+
+## Optional: install globally
+
+If you prefer to have the `create-slik` command available without `npx`, you can install it globally:
+
+<Steps>
+  <Step title="Install the package globally">
+    <CodeGroup>
+      ```bash npm
+      npm install -g create-slik
+      ```
+
+      ```bash yarn
+      yarn global add create-slik
+      ```
+
+      ```bash pnpm
+      pnpm add -g create-slik
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Run the global command">
+    Once installed, you can scaffold new projects without `npx`:
+
+    ```bash
+    create-slik my-app
+    ```
+  </Step>
+
+  <Step title="Keep it up to date">
+    Because the global install pins a specific version, you will need to update it manually when new releases ship:
+
+    <CodeGroup>
+      ```bash npm
+      npm update -g create-slik
+      ```
+
+      ```bash yarn
+      yarn global upgrade create-slik
+      ```
+
+      ```bash pnpm
+      pnpm update -g create-slik
+      ```
+    </CodeGroup>
+
+    <Tip>
+      Using `npx create-slik@latest` avoids this maintenance entirely — it always pulls the newest published version automatically.
+    </Tip>
+  </Step>
+</Steps>
+
+## Verify your environment
+
+Before scaffolding, confirm your versions are compatible:
+
+<Steps>
+  <Step title="Check Node.js">
+    ```bash
+    node --version
+    ```
+
+    You should see `v18.0.0` or higher. If the command is not found, [download Node.js](https://nodejs.org) and install the LTS release for your operating system.
+  </Step>
+
+  <Step title="Check npm">
+    ```bash
+    npm --version
+    ```
+
+    You should see `7.0.0` or higher. npm is installed automatically alongside Node.js, so upgrading Node.js is usually sufficient.
+  </Step>
+
+  <Step title="Confirm npx is available">
+    ```bash
+    npx --version
+    ```
+
+    Any output here confirms `npx` is ready. It ships with npm and does not require a separate install.
+  </Step>
+</Steps>
+
+<Warning>
+  If you are on an older Node.js release (v16 or below), some dependencies in the generated project — particularly Next.js and Prisma — may not work correctly. Upgrade to Node.js v18 LTS before proceeding.
+</Warning>
+
+## Installing Node.js
+
+If Node.js is not yet on your machine, the fastest way to install it depends on your operating system:
+
+- **macOS**: Use [Homebrew](https://brew.sh) — `brew install node` — or download the installer from [nodejs.org](https://nodejs.org)
+- **Linux**: Use your distribution's package manager, or use [nvm](https://github.com/nvm-sh/nvm) to manage multiple Node versions
+- **Windows**: Download the installer from [nodejs.org](https://nodejs.org), or use [nvm-windows](https://github.com/coreybutler/nvm-windows)
+
+<Tip>
+  `nvm` (Node Version Manager) is especially useful if you work across multiple projects that require different Node.js versions. It lets you switch versions per project without affecting your system installation.
+</Tip>
+
+## Next steps
+
+Once your environment is verified, head to the Quickstart to scaffold your first Slik project.
+
+<CardGroup cols={2}>
+  <Card title="Quickstart" icon="rocket" href="/quickstart">
+    Run `npx create-slik@latest` and have a full-stack SaaS app running in under 60 seconds.
+  </Card>
+  <Card title="Introduction" icon="book-open" href="/introduction">
+    Learn what Slik Engine generates and how it compares to traditional boilerplates.
+  </Card>
+</CardGroup>

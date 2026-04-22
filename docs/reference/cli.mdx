@@ -1,0 +1,96 @@
+---
+title: "create-slik CLI: Commands, Arguments, and Options"
+description: "Complete reference for the create-slik command. Covers the app-name argument, interactive prompts, and all post-scaffold commands you'll use during development."
+---
+
+The `create-slik` CLI is the single entry point for scaffolding a new Slik-generated project. You invoke it with `npx` — no global installation required. This page covers every argument, interactive prompt, and post-scaffold command available to you.
+
+## Usage
+
+```bash
+npx create-slik@latest <app-name>
+```
+
+Replace `<app-name>` with the name of the directory you want to create. For example:
+
+```bash
+npx create-slik@latest my-saas-app
+```
+
+This creates a `my-saas-app/` directory in your current working directory and begins the interactive setup.
+
+## Arguments
+
+<ParamField path="app-name" type="string" required>
+  The name of the project directory to create. Use lowercase letters, numbers, and hyphens. This becomes the directory name and the `name` field in `package.json`.
+</ParamField>
+
+## Interactive prompts
+
+After you run the command, Slik walks you through four prompts. Use your arrow keys to select an option and press **Enter** to confirm.
+
+### 1. Stack
+
+Select the JavaScript framework for your project.
+
+| Option | Status | Description |
+|--------|--------|-------------|
+| **Next.js** | Available | App Router, server components, file-based routing |
+| **React** | Coming soon | Client-side SPA with Vite |
+| **HTML** | Coming soon | Vanilla HTML/CSS/JS output |
+
+### 2. Theme
+
+Select the visual design theme.
+
+| Option | Status | Description |
+|--------|--------|-------------|
+| **Bento** | Available (with Next.js) | Bento-grid layout, modern SaaS aesthetic |
+| **Frost** | Coming soon | Glassmorphism, light and airy palette |
+| **Mono** | Coming soon | Monochromatic, typographic, minimal |
+
+### 3. Database
+
+Choose whether to include database support.
+
+| Option | Description |
+|--------|-------------|
+| **Yes** | Adds PostgreSQL via Prisma ORM. Generates `prisma/schema.prisma` and installs `@prisma/client`. |
+| **No** | Skips database setup entirely. You can add it manually later. |
+
+### 4. Auth
+
+Choose whether to include authentication.
+
+| Option | Description |
+|--------|-------------|
+| **Yes** | Adds NextAuth/Auth.js with OAuth and magic link support, pre-wired with session management. |
+| **No** | Skips auth setup. You can add it manually later. |
+
+## Terminal output
+
+Once you confirm your selections, Slik scaffolds your project and shows its progress:
+
+```
+✔ Creating project structure...
+✔ Installing dependencies...
+✔ Setting up authentication...
+✨ Your app is ready! Start building.
+```
+
+## Post-scaffold commands
+
+Once your project is created, use these commands inside your project directory.
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start the development server at `http://localhost:3000` |
+| `npm run build` | Build the app for production |
+| `npm run preview` | Preview the production build locally |
+| `npx prisma db push` | Sync your Prisma schema to the database (requires database setup) |
+| `npx prisma studio` | Open the Prisma GUI to browse your database (requires database setup) |
+| `npx prisma generate` | Regenerate the Prisma Client after schema changes |
+
+<Tip>
+  Run `npm run build` before deploying to catch any TypeScript or build errors early.
+</Tip>
