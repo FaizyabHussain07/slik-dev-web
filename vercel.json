@@ -13,7 +13,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/((?!docs|assets|favicon.svg|logo-).*)",
+      "source": "/((?!docs|assets|favicon.svg|logo-|google).*)",
       "destination": "/index.html"
     }
   ]
