@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Github } from 'lucide-react';
+import { ArrowRight, Github, Copy, Check } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const TerminalMockup = () => {
@@ -69,6 +69,15 @@ const TerminalMockup = () => {
 };
 
 export default function HeroSection() {
+  const [copied, setCopied] = useState(false);
+  const command = "npx create-slik@latest";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(command);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden flex flex-col items-center text-center">
       {/* Background radial gradient */}
@@ -110,10 +119,10 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4"
         >
-          <button className="flex items-center px-8 py-3 text-base font-semibold rounded-full text-white bg-gradient-premium hover:scale-105 transition-transform shadow-lg shadow-emerald-500/25">
+          <a href="/docs" className="flex items-center px-8 py-3 text-base font-semibold rounded-full text-white bg-gradient-premium hover:scale-105 transition-transform shadow-lg shadow-emerald-500/25">
             Get Started Now
             <ArrowRight className="w-4 h-4 ml-2" />
-          </button>
+          </a>
           <a
             href="https://github.com/FaizyabHussain07/slik-engine"
             target="_blank"
@@ -123,6 +132,25 @@ export default function HeroSection() {
             <Github className="w-5 h-5 mr-2" />
             View on GitHub
           </a>
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex justify-center mt-8 mb-10"
+        >
+          <div 
+            className="flex items-center bg-[#09090b] dark:bg-[#18181b] border border-gray-800 dark:border-white/10 rounded-lg p-1 pr-1 pl-4 cursor-pointer hover:border-emerald-500/50 transition-colors group shadow-xl"
+            onClick={handleCopy}
+            title="Copy to clipboard"
+          >
+            <span className="text-gray-500 font-mono text-sm mr-2">$</span>
+            <code className="text-emerald-400 font-mono text-sm mr-6">{command}</code>
+            <div className="p-2 bg-white/5 rounded-md text-gray-400 group-hover:text-emerald-400 transition-colors">
+              {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+            </div>
+          </div>
         </motion.div>
         
         <TerminalMockup />

@@ -60,9 +60,9 @@ export default function Navbar() {
                 </div>
               </a>
               <ThemeToggle />
-              <button className="px-5 py-2 text-sm font-semibold rounded-full text-white bg-gradient-premium hover:scale-105 transition-transform shadow-lg shadow-emerald-500/20">
+              <a href="/docs" className="px-5 py-2 text-sm font-semibold rounded-full text-white bg-gradient-premium hover:scale-105 transition-transform shadow-lg shadow-emerald-500/20">
                 Get Started
-              </button>
+              </a>
             </div>
           </div>
 
@@ -92,9 +92,9 @@ export default function Navbar() {
               <Star className="w-3 h-3 mr-1 text-yellow-500 fill-yellow-500" /> {stars !== null ? stars.toLocaleString() : 'Star'}
             </span>
           </a>
-          <button className="w-full mt-4 px-4 py-3 text-base font-semibold rounded-lg text-white bg-gradient-premium shadow-lg shadow-emerald-500/20">
+          <a href="/docs" className="block text-center w-full mt-4 px-4 py-3 text-base font-semibold rounded-lg text-white bg-gradient-premium shadow-lg shadow-emerald-500/20">
             Get Started
-          </button>
+          </a>
         </div>
       )}
     </nav>

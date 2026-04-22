@@ -95,4 +95,4 @@ async function handleRequest(request) {
 
 - [Mintlify documentation](https://mintlify.com/docs)
 - [Slik Dev GitHub](https://github.com/FaizyabHussain07/slik-dev-web)
-- [Slik Dev Website](https://slik-dev.vercel.app)
+- [Slik Dev Website](https://slik-dev.vercel.app/)

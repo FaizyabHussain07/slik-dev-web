@@ -19,7 +19,7 @@
     "links": [
       {
         "label": "Try Slik",
-        "href": "https://slik-dev.vercel.app"
+        "href": "https://slik-dev.vercel.app/"
       },
       {
         "label": "GitHub",
@@ -31,7 +31,7 @@
     "socials": {
       "github": "https://github.com/FaizyabHussain07/slik-dev-web",
       "twitter": "https://twitter.com/faizyabhussain",
-      "website": "https://slik-dev.vercel.app"
+      "website": "https://slik-dev.vercel.app/"
     }
   },
   "navigation": {
