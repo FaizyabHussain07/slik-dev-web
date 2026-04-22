@@ -33,6 +33,14 @@
   "navbar": {
     "links": [
       {
+        "label": "Try Slik",
+        "href": "https://slik-dev.vercel.app/"
+      },
+      {
+        "label": "GitHub (CLI)",
+        "href": "https://github.com/FaizyabHussain07/slik-engine"
+      },
+      {
         "label": "GitHub (Web)",
         "href": "https://github.com/FaizyabHussain07/slik-dev-web"
       }

@@ -7,6 +7,14 @@
     {
       "source": "/docs/:match*",
       "destination": "https://faizyab07.mintlify.dev/docs/:match*"
+    },
+    {
+      "source": "/preview",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!docs|assets|favicon.svg|logo-).*)",
+      "destination": "/index.html"
     }
   ]
 }
