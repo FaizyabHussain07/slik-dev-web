@@ -27,24 +27,25 @@
     }
   ],
   "topbarCtaButton": {
-    "text": "Try Slik",
+    "text": "Try Slik →",
     "url": "https://slik-dev.vercel.app/"
   },
   "navbar": {
     "links": [
       {
-        "label": "Try Slik",
-        "href": "https://slik-dev.vercel.app/"
-      },
-      {
         "label": "GitHub",
         "href": "https://github.com/FaizyabHussain07/slik-engine"
       }
-    ]
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Try Slik",
+      "href": "https://slik-dev.vercel.app/"
+    }
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/FaizyabHussain07/slik-dev-web",
+      "github": "https://github.com/FaizyabHussain07/slik-engine",
       "twitter": "https://x.com/FaizyabHus74391",
       "website": "https://slik-dev.vercel.app/"
     }

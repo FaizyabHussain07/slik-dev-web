@@ -91,7 +91,7 @@ export default function HeroSection() {
         >
           <div className="inline-flex items-center px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-sm font-medium mb-8 backdrop-blur-sm">
             <span className="flex w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
-            v0.1.2 Released
+            v0.1.8 Released
           </div>
         </motion.div>
         
